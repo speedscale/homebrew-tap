@@ -29,6 +29,8 @@ class Speedctl < Formula
 
     # grab the checksum file
     URI.open("#{@url}.sha256") { |f| sha256 f.string.strip }
+  else
+    odie "There is no speedctl support for #{@@os}/#{@@arch}. Please contact support@speedscale.com with your platform details."
   end
 
   def install
