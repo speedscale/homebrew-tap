@@ -32,6 +32,9 @@ class Speedctl < Formula
   def install
     bin.install "speedctl"
 
+    # make sure it's executable
+    system "chmod", "0755", bin/"speedctl"
+
     # generate the completions
     (bash_completion/"speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "bash")
     (zsh_completion/"_speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "zsh")
