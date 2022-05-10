@@ -33,9 +33,9 @@ class Speedctl < Formula
     bin.install "speedctl"
 
     # generate the completions
-    (bash_completion/"speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "bash")
-    (zsh_completion/"_speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "zsh")
-    (fish_completion/"speedctl.fish").write Utils.safe_popen_read(bin/"speedctl", "completion", "fish")
+    # (bash_completion/"speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "bash")
+    # (zsh_completion/"_speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "zsh")
+    # (fish_completion/"speedctl.fish").write Utils.safe_popen_read(bin/"speedctl", "completion", "fish")
 
     ohai "Please run `speedctl init` if this is your first installation"
   end
