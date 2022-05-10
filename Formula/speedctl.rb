@@ -26,16 +26,16 @@ class Speedctl < Formula
     url "https://downloads.speedscale.com/speedctl/v#{version}/speedctl-#{@os}-#{@arch}"
 
     # grab the checksum file
-    URI.open("#{url}.sha256") { |f| sha256 f.body.strip }
+    # URI.open("#{url}.sha256") { |f| sha256 f.body.strip }
   end
 
   def install
     bin.install "speedctl"
 
     # generate the completions
-    # (bash_completion/"speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "bash")
-    # (zsh_completion/"_speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "zsh")
-    # (fish_completion/"speedctl.fish").write Utils.safe_popen_read(bin/"speedctl", "completion", "fish")
+    (bash_completion/"speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "bash")
+    (zsh_completion/"_speedctl").write Utils.safe_popen_read(bin/"speedctl", "completion", "zsh")
+    (fish_completion/"speedctl.fish").write Utils.safe_popen_read(bin/"speedctl", "completion", "fish")
 
     ohai "Please run `speedctl init` if this is your first installation"
   end
