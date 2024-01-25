@@ -3,7 +3,7 @@ require 'open-uri'
 class Speedctl < Formula
   desc "Speedscale CLI"
   homepage "https://speedscale.com/"
-  version "2.0.41"
+  version "2.0.49"
 
   # which binary do we need
   @@os = ""
