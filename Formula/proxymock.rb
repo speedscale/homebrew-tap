@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class Proxymock < Formula
-  desc "Proxymock CLI"
+  desc "proxymock CLI"
   homepage "https://speedscale.com/"
   version "2.3.158"
 
