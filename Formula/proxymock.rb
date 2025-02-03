@@ -44,7 +44,8 @@ class Proxymock < Formula
 
 !! IMPORTANT !!
 
-If this is a fresh proxymock install, you must run `proxymock init`. If you are planning to use the VSCode extension then it will do this automatically.
+If this is a fresh proxymock install, you must run `proxymock init`.
+If you are planning to use the VSCode extension then it will do this automatically.
 
 NOTICE
   end
