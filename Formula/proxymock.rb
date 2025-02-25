@@ -45,10 +45,10 @@ class Proxymock < Formula
 !! IMPORTANT !!
 
 If this is a fresh proxymock install, you must run `proxymock init --api-key <YOUR KEY>`.
-You can get an api key from
-https://app.speedscale.com/proxymock/signup
 
 NOTICE
+
+    ohai "You can get an api key from https://app.speedscale.com/proxymock/signup"
   end
 
   test do
