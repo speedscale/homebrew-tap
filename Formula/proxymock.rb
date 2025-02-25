@@ -44,8 +44,8 @@ class Proxymock < Formula
 
 !! IMPORTANT !!
 
-If this is a fresh proxymock install, you must run `proxymock init`.
-If you are planning to use the VSCode extension then it will do this automatically.
+If this is a fresh proxymock install, you must run `proxymock init --api-key <YOUR KEY>`.
+You can obtain an api key from https://app.speedscale.com/proxymock/signup.
 
 NOTICE
   end
