@@ -42,9 +42,11 @@ class Proxymock < Formula
     ohai <<-NOTICE
 
 If this is a fresh proxymock install, you must run `proxymock init --api-key <YOUR KEY>`.
-You can get an api key from https://app.speedscale.com/proxymock/signup
 
 NOTICE
+  ohai ""
+  ohai "You can get an api key from https://docs.speedscale.com/proxymock/getting-started/api-key/"
+  ohai ""
 
   end
 
