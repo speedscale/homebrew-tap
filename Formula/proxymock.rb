@@ -41,9 +41,6 @@ class Proxymock < Formula
 
     ohai <<-NOTICE
 
-
-!! IMPORTANT !!
-
 If this is a fresh proxymock install, you must run `proxymock init`.
 
 NOTICE
