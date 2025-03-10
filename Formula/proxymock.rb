@@ -41,7 +41,10 @@ class Proxymock < Formula
 
     ohai <<-NOTICE
 
-If this is a fresh proxymock install, you must run `proxymock init --api-key <YOUR KEY>`.
+
+!! IMPORTANT !!
+
+If this is a fresh proxymock install, you must run `proxymock init`.
 
 NOTICE
   ohai ""
