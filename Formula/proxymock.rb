@@ -2,7 +2,7 @@ require 'open-uri'
 
 class Proxymock < Formula
   desc "proxymock CLI"
-  homepage "https://speedscale.com/"
+  homepage "https://proxymock.io/"
   version "2.4.25"
 
   # which binary do we need
