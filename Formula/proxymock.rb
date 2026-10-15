@@ -37,6 +37,7 @@ class Proxymock < Formula
     libexec.install "proxymock-#{@@os}-#{@@arch}" => "proxymock-bin"
     system "chmod", "0755", libexec/"proxymock-bin"
 
+    bin.mkpath
     (bin/"proxymock").write <<~SH
       #!/bin/sh
       binary="#{libexec}/proxymock-bin"
