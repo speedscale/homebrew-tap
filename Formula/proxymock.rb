@@ -34,14 +34,38 @@ class Proxymock < Formula
   end
 
   def install
-    bin.install "proxymock-#{@@os}-#{@@arch}" => "proxymock"
+    libexec.install "proxymock-#{@@os}-#{@@arch}" => "proxymock-bin"
+    system "chmod", "0755", libexec/"proxymock-bin"
 
-    # ensure executable
-    system "chmod", "0755", bin/"proxymock"
+    bin.mkpath
+    (bin/"proxymock").write <<~SH
+      #!/bin/sh
+      binary="#{libexec}/proxymock-bin"
+      export SPEEDSCALE_PROXYMOCK_EXECUTABLE="#{opt_bin}/proxymock"
+      state="${HOME}/.speedscale/mcp-registration-version"
+      case "${1-}:${2-}" in
+        mcp:install|init:*) ;;
+        *)
+          if [ ! -f "$state" ] || [ "$(cat "$state")" != "v#{version}" ]; then
+            "$binary" mcp install --yes
+            status=$?
+            if [ "$status" -eq 0 ]; then
+              mkdir -p "$(dirname "$state")"
+              printf '%s' "v#{version}" > "$state"
+            else
+              echo "proxymock MCP setup did not complete. Run proxymock mcp install --yes to retry." >&2
+            fi
+          fi
+          ;;
+      esac
+      exec "$binary" "$@"
+    SH
+    (bin/"proxymock").chmod 0755
 
     ohai <<-NOTICE
 
-If this is a fresh proxymock install, you must run `proxymock init`.
+The MCP server and bundled skills are registered for detected AI clients the first time you run proxymock.
+Run `proxymock init` to authenticate with Speedscale.
 
 NOTICE
   ohai ""
