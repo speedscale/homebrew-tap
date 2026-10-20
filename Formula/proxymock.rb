@@ -43,19 +43,32 @@ class Proxymock < Formula
       binary="#{libexec}/proxymock-bin"
       export SPEEDSCALE_PROXYMOCK_EXECUTABLE="#{opt_bin}/proxymock"
       state="${HOME}/.speedscale/mcp-registration-version"
+
+      register_mcp() {
+        if [ -f "$state" ] && [ "$(cat "$state")" = "v#{version}" ]; then
+          return 0
+        fi
+
+        if "$binary" mcp install --yes; then
+          mkdir -p "$(dirname "$state")"
+          printf '%s' "v#{version}" > "$state"
+        else
+          echo "proxymock MCP setup did not complete. Run proxymock mcp install --yes to retry." >&2
+        fi
+      }
+
       case "${1-}:${2-}" in
-        mcp:install|init:*) ;;
-        *)
-          if [ ! -f "$state" ] || [ "$(cat "$state")" != "v#{version}" ]; then
-            "$binary" mcp install --yes
-            status=$?
-            if [ "$status" -eq 0 ]; then
-              mkdir -p "$(dirname "$state")"
-              printf '%s' "v#{version}" > "$state"
-            else
-              echo "proxymock MCP setup did not complete. Run proxymock mcp install --yes to retry." >&2
-            fi
+        mcp:install) ;;
+        init:*)
+          "$binary" "$@"
+          status=$?
+          if [ "$status" -eq 0 ]; then
+            register_mcp
           fi
+          exit "$status"
+          ;;
+        *)
+          register_mcp
           ;;
       esac
       exec "$binary" "$@"
@@ -64,7 +77,7 @@ class Proxymock < Formula
 
     ohai <<-NOTICE
 
-The MCP server and bundled skills are registered for detected AI clients the first time you run proxymock.
+The MCP server and bundled skills are registered for detected AI clients when `proxymock init` succeeds.
 Run `proxymock init` to authenticate with Speedscale.
 
 NOTICE
