@@ -58,7 +58,7 @@ class Proxymock < Formula
       }
 
       case "${1-}:${2-}" in
-        mcp:install) ;;
+        mcp:*) ;;
         init:*)
           "$binary" "$@"
           status=$?
