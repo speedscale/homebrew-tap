@@ -57,27 +57,22 @@ class Proxymock < Formula
         fi
       }
 
-      case "${1-}:${2-}" in
-        mcp:*) ;;
-        init:*)
-          "$binary" "$@"
-          status=$?
-          if [ "$status" -eq 0 ]; then
-            register_mcp
-          fi
-          exit "$status"
-          ;;
-        *)
+      if [ "${1-}" = "init" ]; then
+        "$binary" "$@"
+        status=$?
+        if [ "$status" -eq 0 ]; then
           register_mcp
-          ;;
-      esac
+        fi
+        exit "$status"
+      fi
+
       exec "$binary" "$@"
     SH
     (bin/"proxymock").chmod 0755
 
     ohai <<-NOTICE
 
-The MCP server and bundled skills are registered for detected AI clients when `proxymock init` succeeds.
+The MCP server and bundled skills are registered for detected AI clients only when `proxymock init` succeeds.
 Run `proxymock init` to authenticate with Speedscale.
 
 NOTICE
