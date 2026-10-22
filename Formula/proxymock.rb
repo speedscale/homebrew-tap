@@ -3,7 +3,7 @@ require 'open-uri'
 class Proxymock < Formula
   desc "proxymock CLI"
   homepage "https://proxymock.io/"
-  version "2.5.1206"
+  version "2.5.1220"
 
   # which binary do we need
   @@os = ""
