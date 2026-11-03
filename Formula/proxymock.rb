@@ -42,38 +42,15 @@ class Proxymock < Formula
       #!/bin/sh
       binary="#{libexec}/proxymock-bin"
       export SPEEDSCALE_PROXYMOCK_EXECUTABLE="#{opt_bin}/proxymock"
-      state="${HOME}/.speedscale/mcp-registration-version"
-
-      register_mcp() {
-        if [ -f "$state" ] && [ "$(cat "$state")" = "v#{version}" ]; then
-          return 0
-        fi
-
-        if "$binary" mcp install --yes; then
-          mkdir -p "$(dirname "$state")"
-          printf '%s' "v#{version}" > "$state"
-        else
-          echo "proxymock MCP setup did not complete. Run proxymock mcp install --yes to retry." >&2
-        fi
-      }
-
-      if [ "${1-}" = "init" ]; then
-        "$binary" "$@"
-        status=$?
-        if [ "$status" -eq 0 ]; then
-          register_mcp
-        fi
-        exit "$status"
-      fi
-
       exec "$binary" "$@"
     SH
     (bin/"proxymock").chmod 0755
 
     ohai <<-NOTICE
 
-The MCP server and bundled skills are registered for detected AI clients only when `proxymock init` succeeds.
+Installing or upgrading this formula does not configure coding agents.
 Run `proxymock init` to authenticate with Speedscale.
+Run `proxymock mcp install` to review optional agent integration.
 
 NOTICE
   ohai ""
@@ -83,6 +60,6 @@ NOTICE
   end
 
   test do
-    system "#{bin}/proxymock version"
+    system bin/"proxymock", "version", "--client"
   end
 end
